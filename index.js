@@ -172,29 +172,29 @@ equalsBtn.addEventListener('click', function () {
 
 //Operations
 function add(_x, _y) {
-    return (parseInt(_x) + parseInt(_y))
-}
+    return (+_x) + (+_y);
+  }
 
 function subtract(_x, _y) {
-    return (_x - _y)
+    return (+_x) - (+_y)
 }
 
 function multiply(_x, _y) {
-    return (_x * _y)
+    return (+_x) * (+_y)
 }
 
 function divide(_x, _y) {
     if (_y == 0) {
         return "NAUGHTY"
     }
-    return parseInt(_x) / parseInt(_y);
+    return (+_x) / (+_y);
 }
 
 function operate(_x, _z, _y) {
-    if (_z == "+") return add(_x, _y);
-    if (_z == "-") return subtract(_x, _y);
-    if (_z == "*") return multiply(_x, _y);
-    if (_z == "/") return divide(_x, _y);
+    if (_z == "+") return parseFloat(add(_x, _y).toFixed(3));
+    if (_z == "-") return parseFloat(subtract(_x, _y).toFixed(3));
+    if (_z == "*") return parseFloat(multiply(_x, _y).toFixed(3));
+    if (_z == "/") return parseFloat(divide(_x, _y).toFixed(3));
 }
 
 
