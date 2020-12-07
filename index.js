@@ -17,6 +17,7 @@ const plusBtn = document.querySelector("#plus")
 const zeroBtn = document.querySelector("#zero")
 const decimalBtn = document.querySelector("#decimal")
 const equalsBtn = document.querySelector("#equals")
+const backgrnd = document.querySelector("#body")
 
 //Interface
 let firstValue = "";
@@ -27,6 +28,7 @@ let clear = true;
 let clear2 = true;
 let calculating = false;
 let decimalUse = false;
+let blockSolution = true;
 
 
 function updateDisplay(_text) {
@@ -49,32 +51,40 @@ function updateDisplay2(_text) {
     if (clear === false && calculating === true && clear2 === false) {
         secondValue += _text
         display.textContent = `${secondValue}`;
+        blockSolution = false;
     }
     if (clear === true && calculating === true && clear2 === false) {
         secondValue = _text;
         display.textContent = `${secondValue}`;
         clear = false;
+        blockSolution = false;
     }
 }
 
 
 function updateDispOp(_text) {
-    {
+    if (_text == "÷") {
+        operator = "/"
+        display.textContent = "÷"
+    }
+    else {
         operator = _text;
         display.textContent = `${operator}`;
-        calculating = true;
-        clear = true;
-        clear2 = false;
-        decimalUse = false;
     }
+    calculating = true;
+    clear = true;
+    clear2 = false;
+    decimalUse = false;
 }
 
 function findSolution() {
-    solution = operate(firstValue, operator, secondValue)
+    if (blockSolution == true) { return }
+    solution = operate(firstValue, operator, secondValue);
     firstValue = solution;
     display.textContent = `${solution}`;
     clear2 = false;
     calculating = true;
+    blockSolution = true;
 }
 
 
@@ -87,6 +97,7 @@ clearBtn.addEventListener('click', function () {
     calculating = false;
     display.textContent = "0"
     decimalUse = false;
+    blockSolution = true;
 }, false)
 
 
@@ -173,6 +184,9 @@ function multiply(_x, _y) {
 }
 
 function divide(_x, _y) {
+    if (_y == 0) {
+        return "NAUGHTY"
+    }
     return parseInt(_x) / parseInt(_y);
 }
 
@@ -182,8 +196,6 @@ function operate(_x, _z, _y) {
     if (_z == "*") return multiply(_x, _y);
     if (_z == "/") return divide(_x, _y);
 }
-
-
 
 
 
